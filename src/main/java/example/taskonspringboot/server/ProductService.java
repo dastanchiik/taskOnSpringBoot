@@ -7,6 +7,7 @@ import example.taskonspringboot.repositories.ProductRepo;
 
 import java.util.List;
 
+
 public class ProductService {
     private static ProductRepo repo;
 
@@ -27,6 +28,10 @@ public class ProductService {
     }
 
     public void deleteProductById(Long id){
+        boolean check = repo.existsById(id);
+        if (!check) {
+            throw new MyException("wrong id");
+        }
         repo.deleteById(id);
     }
 

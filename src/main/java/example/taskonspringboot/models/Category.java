@@ -19,6 +19,7 @@ public class Category {
     private Long id;
     private String categoryName;
     @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "category")
+    @ToString.Exclude
     private List<SubCategory> categories;
 
     public Category(String categoryName, List<SubCategory> categories) {
