@@ -3,20 +3,19 @@ package example.taskonspringboot.api;
 import example.taskonspringboot.dto.request.ProductRequest;
 import example.taskonspringboot.models.Product;
 import example.taskonspringboot.server.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/product")
+@RequiredArgsConstructor
 public class ProductApi {
-    private static ProductService service;
+    private final ProductService service;
 
     @PostMapping("/save")
-    public String registerProduct(ProductRequest productRequest) {
+    public String registerProduct(@RequestBody ProductRequest productRequest) {
         service.saveProduct(productRequest);
         return "saved ✅";
     }
@@ -25,4 +24,16 @@ public class ProductApi {
     public List<Product> getAllProducts() {
         return service.getAllProducts();
     }
+
+    @GetMapping("/getProduct/by/{id}")
+    public Product getById(@PathVariable Long id){
+        return service.getProductById(id);
+    }
+
+    @DeleteMapping("/productDelete/by/{id}")
+    public String deleteProductById(@PathVariable Long id){
+        service.deleteProductById(id);
+        return "deleted ✔";
+    }
+
 }

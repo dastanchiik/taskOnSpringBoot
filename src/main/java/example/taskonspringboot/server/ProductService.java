@@ -4,12 +4,16 @@ import example.taskonspringboot.dto.request.ProductRequest;
 import example.taskonspringboot.exception.MyException;
 import example.taskonspringboot.models.Product;
 import example.taskonspringboot.repositories.ProductRepo;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-
+@Service
+@RequiredArgsConstructor
 public class ProductService {
-    private static ProductRepo repo;
+    private final ProductRepo repo;
 
     public void saveProduct(ProductRequest newProduct) {
         Product product = new Product();
@@ -19,8 +23,8 @@ public class ProductService {
         repo.save(product);
     }
 
-    public Product getProduct(Long id) {
-        return repo.getById(id);
+    public Product getProductById(Long id){
+        return repo.findById(id).orElseThrow(() -> new RuntimeException("wrong id"));
     }
 
     public List<Product> getAllProducts() {

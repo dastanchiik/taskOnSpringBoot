@@ -1,12 +1,12 @@
 package example.taskonspringboot.models;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,6 +20,7 @@ public class Product {
     private Long id;
     private String productName;
     private String description;
+    @Enumerated(EnumType.STRING)
     private ProductStatus status;
     private Boolean isBlock;
     @CreationTimestamp
